@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>마우저-ADI의 비디오 퀴즈 이벤트</title>
+    <style>
+        @keyframes motion {
+            from{
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to{
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+        @keyframes move {
+            from{
+                transform: translateY(5px);
+            }
+            to{
+                transform: translateY(0px);
+            }
+        }
+        @keyframes rota {
+            from{
+                transform: rotate(5deg);
+            }
+            to{
+                transform: rotate(0deg);
+            }
+        }
+
+        body{
+            background-color: #0dbdfe;
+            font-family: 'Noto Sans KR', sans-serif;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            display: inline-block;
+        }
+        p{
+            padding: 0;
+            margin: 0;
+            line-height: 1;
+        }
+        #wrapper{
+            width: 100%;
+            position: relative;
+        }
+        .contents{
+            width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .con01 {
+            padding-top: 80px;
+        }
+        .bg-img{
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .logo > a {
+            margin: 0 70px 0 20px;
+        }
+        .blue-circle{
+            width: 35px;
+            height: 35px;
+            border-radius: 100%;
+            box-sizing: border-box;
+            border: solid 10px #2429c0;
+            display: inline-block;
+            position: absolute;
+            top: 160px;
+            left: 570px;
+        }
+        .hintbanner {
+            display: block;
+        }
+        .hintbanner-m {
+            display: none;
+        }
+        .title {
+            padding-bottom: 50px;
+        }
+        .title > p {
+            color: #ffffff;
+            font-size: 50px;
+            padding-top: 40px;
+            padding-left: 20px;
+        }
+        .title > p:nth-child(1) {
+            font-weight: 300;
+            text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.1);
+            padding-top: 70px;
+            opacity: 0;
+            animation: motion 1s;
+            animation-delay: 0.4s;
+            animation-fill-mode: forwards;
+            
+        }
+        .title > p:nth-child(2) {
+            font-weight: 700;
+            text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            animation: motion 1s;
+            animation-delay: 0.8s;
+            animation-fill-mode: forwards;
+        }
+        .title > p:nth-child(3) {
+            color: #000000;
+            font-size: 25px;
+            font-weight: 700;
+            padding-top: 50px;
+            padding-left: 30px;
+            opacity: 0;
+            animation: motion 1s;
+            animation-delay: 1.2s;
+            animation-fill-mode: forwards;
+        }
+        .box{
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            padding-bottom: 80px;
+        }
+        .box > .copy > span {
+            border-bottom: 1px solid #000000;
+        }
+        .box > p {
+            padding-left: 50px;
+        }
+        .box > .copy01 {
+            font-size: 22px;
+            font-weight: 400;
+            line-height: 35px;
+            padding-top: 50px;
+            letter-spacing: -1px;
+        }
+        .box > .copy02 {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 35px;
+            padding-top: 16px;
+            letter-spacing: -1px;
+        }
+        .dot{
+            display: inline-block;
+            background-color: #2429c0;
+            width: 8px;
+            height: 8px;
+            transform: translateY(-2px);
+        }
+        .text {
+            margin-left: 10px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .item {
+            padding: 20px 50px;
+        }
+        .item > p:nth-child(1){
+            padding-bottom: 14px;
+        }
+        .item > p:nth-child(2){
+            font-size: 18px;
+            font-weight: 400;
+            padding-left: 20px;
+            
+        }
+        .kit-img01{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            opacity: 0;
+            animation: motion 1s;
+            animation-delay: 1.6s;
+            animation-fill-mode: forwards;
+        }
+        .kit-img01 > p {
+            margin-left: 140px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .main-img > img {
+            position: absolute;
+            bottom: 0;
+        }
+        .main-img > img:nth-child(1){
+            right: 300px;
+            animation: move 0.5s alternate-reverse infinite;
+        }
+        .main-img > img:nth-child(2){
+            right: 190px;
+            bottom: 140px;
+            animation: rota 0.5s alternate-reverse infinite;
+        }
+        .main-img > img:nth-child(3){
+            right: 25px;
+            bottom: 100px;
+            animation: rota 1.5s alternate-reverse infinite;
+        }
+        .main-img > img:nth-child(4){
+            right: 130px;
+            animation: rota 1.5s alternate-reverse infinite;
+        }
+        .con02 {
+            background-color: #ffde27;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 1080px;
+        }
+        .kit-img02{
+            position: absolute;
+            top: 40px;
+            left: 0;
+            z-index: 9999;
+        }
+        .txt-box {
+            box-sizing: border-box;
+            text-align: center;
+            margin: 80px auto 20px auto;
+            position: relative;
+        }
+        .txt-box-mobile {
+            display: none;
+        }
+        .txt-box > p:nth-child(1) {
+            padding-left: 140px;
+            padding-right: 40px;
+            font-size: 20px;
+            font-weight: 700;
+            padding-top: 40px;
+        }
+        .txt-box > p:nth-child(2) {
+            padding-left: 140px;
+            padding-right: 40px;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 24px;
+            padding-top: 20px;
+        }
+        .con03{
+            margin-top: 680px;
+            color: #ffffff;
+            text-align: center;
+            padding-bottom: 80px;
+        }
+        .readme{
+            padding-bottom: 40px;
+            padding-top: 80px;
+        }
+        .readme > p:nth-child(1){
+            font-size: 30px;
+            padding-bottom: 20px;
+        }
+        .readme > p:nth-child(2){
+            font-size: 15px;
+            line-height: 25px;
+        }
+        .survey{
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+        }
+        .survey > iframe {
+            padding: 40px 0;
+        }
+        .down{
+            position: absolute;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .more_btn {
+            text-decoration: none;
+            color: #eb1840;
+            font-size: 15px;
+            font-weight: bold;
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+        }
+        .item0101 {
+            padding-top: 80px;
+        }
+        @media screen and (max-width: 900px){
+            .hintbanner {
+                display: none;
+            }
+            .hintbanner-m {
+                display: block;
+            }
+            .bg-img{
+            display: none;
+            }
+            .txt-box {
+                display: none;
+            }
+            .txt-box-mobile {
+                display: block;
+                box-sizing: border-box;
+                text-align: center;
+                margin: 80px auto 20px auto;
+                position: relative;
+            }
+            .contents{
+                width: 100%;
+                max-width: 360px;
+            }
+            .con01{
+                padding-top: 30px;
+            }
+            .blue-circle {
+                width: 16px;
+                height: 16px;
+                border: solid 4px #2429c0;
+                top: 75px;
+                left: 290px;
+                display: none;
+            }
+            .logo > a {
+            margin: 0 40px 0 20px;
+        }
+            .logo > a:nth-child(1) img {
+                width: 100px;
+            }
+            .logo > a:nth-child(2) img {
+                width: 75px;
+            }
+            .logo > a:nth-child(2){
+                margin: 0;
+            }
+            .title > p:nth-child(1) {
+                font-size: 25px;
+                padding-top: 40px;
+            }
+            .title > p:nth-child(2) {
+                font-size: 25px;
+                padding-top: 20px;
+                letter-spacing: -2px;
+            }
+            .title > p:nth-child(3) {
+                font-size: 20px;
+                padding-left: 25px;
+                padding-top: 25px;
+            }
+            .copy span{
+                font-size: 18px;
+            }
+            .box > .copy01 {
+                padding-top: 20px;
+            }
+            .box > .copy02 {
+                padding-top: 0px;
+            }
+            .box > p {
+                padding-left: 25px;
+            }
+            .kit-img01{
+                display: none;
+            }
+            .title{
+                padding-bottom: 40px;
+            }
+            .box{
+                padding-bottom: 160px;
+                
+            }
+            .text {
+                font-size: 16px;
+            }
+            .item > p:nth-child(1){
+                padding-bottom: 10px;
+            }
+            .item > p:nth-child(2){
+                font-size: 16px;
+            }
+            .item {
+                padding: 15px 25px;
+            }
+            .item01 {
+                padding: 40px 20px 15px 25px;
+            }
+            .item0101 {
+                padding-top: 30px;
+            }
+            .main-img > img:nth-child(1){
+                right: 220px;
+                width: 200px;
+            }
+            .main-img > img:nth-child(2){
+                right: 130px;
+                bottom: 70px;
+                width: 100px;
+            }
+            .main-img > img:nth-child(3){
+                right: 10px;
+                bottom: 70px;
+                width: 100px;
+            }
+            .main-img > img:nth-child(4){
+                right: 50px;
+                width: 100px;
+            }
+            .con02{
+                top: 820px;
+            }
+            .kit-img02{
+                width: 300px;
+                top: -130px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .txt-box {
+                background-color: #ffffff;
+                width: 95%;
+                max-width: 340px;
+                height: inherit;
+                border-radius: 10px;
+                box-sizing: border-box;
+                border: 10px solid #e1ca03;
+                margin: 160px auto 20px auto;
+                position: relative;
+            }
+            .txt-box > p:nth-child(1) {
+                padding: 80px 20px 20px 20px;
+                font-size: 20px;
+                font-weight: 700;
+            }
+            .txt-box > p:nth-child(2) {
+                padding: 0 20px 60px 20px;
+                font-size: 15px;
+                font-weight: 400;
+                line-height: 24px;
+            }
+            .txt-logo {
+                display: none;
+            }
+            .more_btn {
+                font-size: 15px;
+                font-weight: bold;
+                position: absolute;
+                bottom: 20px;
+                right: 30px;
+            }
+            .con03{
+                margin-top: 480px;
+            }
+            .readme{
+                padding-top: 220px;
+                
+            }
+            .readme > p:nth-child(1){
+                font-size: 22px;
+                text-align: left;
+                width: 90%;
+                margin-left: 20px;
+            }
+            .readme > p:nth-child(2){
+                font-size: 14px;
+                width: 90%;
+                margin-left: 20px;
+                text-align: left;
+            }
+            .survey{
+                max-width: 360px;
+            }
+            .survey > iframe {
+                height: 1700px;
+                padding: 10px 0
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="contents con01">
+            <img class="bg-img" src="http://techworld.co.kr/event/mouser_devkit/src/bg_img.png" alt="" />
+            <div class="logo">
+                <a href="https://kr.mouser.com/" target="_blank"><img src="http://techworld.co.kr/event/mouser_devkit/src/mouser_logo.png" alt="Mouser" /></a>
+                <a href="https://www.analog.com/en/landing-pages/001/korea-welcome.html" target="_blank"><img src="http://techworld.co.kr/event/mouser_devkit/src/adi_logo.png" alt="Infineon" /></a>
+            </div>
+            <div class="title">
+                <p>1분짜리 영상보고, 퀴즈 풀면</p>
+                <p style="line-height: 40px;">10만원 백화점 상품권이 당신 것!</p>
+                <p># 마우저 & ADI 개발자 지원 이벤트</p>
+                <span class="blue-circle"></span>
+            </div>
+            <div class="box">
+                <p class="copy copy01"><span>빌딩 자동화 네트워크에 대한</span></p>
+                <p class="copy copy02"><span>1분짜리 간단한 영상을 보고</span></p>
+                <p class="copy copy02"><span>퀴즈 풀면 이 상품들이 팡팡!!</span></p>
+                <div class="item item01 item0101">
+                    <p><span class="dot"></span><span class="text">제공 경품</span></p>
+                    <p style="line-height: 30px; letter-spacing: -2px;">
+                        1등: 백화점 상품권 10만원권 (1명)<br/>
+                        2등: 오아 무선 공기압 눈 마사지기 (3명)<br/>
+                        3등: 2만원 상당의 디저트 + 커피 기프티콘 (5명)
+                    </p>
+                </div>
+                <div class="item item02">
+                    <p><span class="dot"></span><span class="text">이벤트 참여 대상</span></p>
+                    <p style="line-height: 30px; letter-spacing: -1px;">빌딩 자동화 네트워크에 관심이 있는<br/>모든 현업 개발자</p>
+                </div>
+                <div class="kit-img01">
+                    <img src="http://techworld.co.kr/event/mouser_devkit/src/kit_img09.png" alt="Dev Kit" />
+                </div>
+                <div class="main-img">
+                    <img src="http://techworld.co.kr/event/mouser_devkit/src/main_img01.png" alt="" />
+                    <img src="http://techworld.co.kr/event/mouser_devkit/src/main_img02.png" alt="" />
+                    <img src="http://techworld.co.kr/event/mouser_devkit/src/main_img03.png" alt="" />
+                    <img src="http://techworld.co.kr/event/mouser_devkit/src/main_img04.png" alt="" />
+                    
+                </div>
+            </div>
+        </div>
+        <div class="con02">
+            <div class="contents" style="text-align: center;">
+                <div class="txt-box">
+                    <iframe style="border: 20px solid #e1ca03;" width="560" height="315" src="https://www.youtube.com/embed/ppJ7R1wuKDk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="txt-box-mobile">
+                    <iframe style="border: 20px solid #e1ca03;" width="320" height="185" src="https://www.youtube.com/embed/ppJ7R1wuKDk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <a class="hintbanner" style="margin-bottom: 60px; text-decoration: none;" href="https://www.mouser.kr/new/analog-devices/adi-adin2111-switches/" target="_blank"><img src="http://techworld.co.kr/event/mouser_devkit/src/hintbanner.png" /></a>
+                <a class="hintbanner-m" style="margin-bottom: 60px; text-decoration: none;" href="https://www.mouser.kr/new/analog-devices/adi-adin2111-switches/" target="_blank"><img width="320" src="http://techworld.co.kr/event/mouser_devkit/src/hintbanner_m.jpg" /></a>
+                <img class="down" src="http://techworld.co.kr/event/mouser_devkit/src/down.png" alt="Scroll Down" />
+            </div>
+        </div>
+        <div class="contents con03">
+            <div class="readme">
+                <p>신청하시기 전에, 꼭! 읽어주세요!</p>
+                <p>
+                    > 타인의 계정을 이용하여 신청 시 불이익을 받을 수 있습니다.<br/>
+                    > 작성한 이메일로 발신이 불가능한 경우, 당첨이 취소될 수 있습니다.<br/>
+                    > 당첨 안내 메일을 발송했으나, 당첨자가 경품 수령 거부 의사를 밝힐 수 있습니다.<br/>
+                    > 당첨 안내 메일에 대한 연락처를 7일 이내에 회신하지 못할 경우 무효처리됩니다. 
+                </p>
+            </div>
+            <div class="survey">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSemucxtqk4t5NE0SCsWMzzLus2GZD31JiCd51Ee0Xp3ekS_UQ/viewform?embedded=true" width="100%" height="1500" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
